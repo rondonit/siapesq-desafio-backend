@@ -23,8 +23,10 @@ python gbifer.py --specie "Thunnus Obesus' --bbox 90 -90 180 -180 --limit 200 --
 
 ### Parte 2
 Desenvolva uma ferramenta que o utilize o Toolbox do Copernicus Marine Service para extrair dados de temperatura(thetao) e salinidade(so) com base em um csv informado. O CSV informado deve estar no mesmo formato que o csv de saida da parte 1 Exemplo :
-
+```
 python dmarine.py --csv exemple.csv --out_csv dmarine_out.csv
+```
+
 Exemplo do csv de saida:
 
 ```csv
