@@ -31,9 +31,7 @@ args = parser_arguments()
 
 # separa os argumentos --bbox para lat_max, lat_min, lon_max, lon_min
 # constroi as strings para o pygbif
-
 lat_max, lat_min, lon_max, lon_min = args.bbox
-
 lat = f"{lat_min},{lat_max}"
 lon = f"{lon_min},{lon_max}"
 
@@ -43,7 +41,6 @@ eventDate_str = f"{args.begin_date},{args.end_date}"
 
 # faz a busca na API do GBIF usando a biblioteca pygbif
 # https://pygbif.readthedocs.io/en/latest/modules/occurrence.html
-
 gbif_data = occurrences.search(
     scientificName = args.specie,
     decimalLatitude = lat,
@@ -55,7 +52,6 @@ gbif_data = occurrences.search(
 
 # cria DataFrame com os dados recebidos
 data_df = pd.DataFrame(gbif_data["results"])
-
 
 # filtra as colunas
 gbif_cols = data_df.columns.tolist()
