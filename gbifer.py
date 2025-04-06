@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+# TO DO:
+#   - Create main() function
+#   - Rewrite comments in english
+#   - Create functions for better code readability 
+
 import sys
 from pygbif import occurrences
 import pandas as pd
