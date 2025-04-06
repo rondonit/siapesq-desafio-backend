@@ -24,7 +24,6 @@ def copernicus_get_data(linha, variable, client):
     lon = linha['decimalLongitude']
     lat = linha['decimalLatitude']
     date_time = date(int(linha['year']), int(linha['month']), int(linha['day'])).isoformat()
-    print("Line: ", linha)
     result = client.open_dataset(
         dataset_id="cmems_mod_glo_phy_my_0.083deg_P1D-m",
         variables=[variable],
@@ -38,7 +37,6 @@ def copernicus_get_data(linha, variable, client):
         maximum_depth=2
     )
     value = result[variable].isel(time=0, depth=0, latitude=0, longitude=0).values.item()
-    print("Value: ", value)
     return value
 
 def extract_variables(line):
@@ -54,14 +52,16 @@ args = parser_arguments()
 # reads input .csv file
 data_csv_df = pd.read_csv(args.csv)
 
-# Using threadPoolExecutor to parallelize the data extraction
+# using threadPoolExecutor to parallelize the data extraction
 with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
     result = list(executor.map(extract_variables, data_csv_df.to_dict(orient="records")))
 
-# Extracting the results into the DataFrame
+# extracting the results into the DataFrame
 data_csv_df["thetao"] = [r["thetao"] for r in result]
 data_csv_df["so"] = [r["so"] for r in result]
 
-# writes the output .csv file
-data_csv_df.to_csv(args.out_csv, index=False)
+# removes lines with NaN
+data_csv_df_clean = data_csv_df.dropna()
 
+# writes the output .csv file
+data_csv_df_clean.to_csv(args.out_csv, index=False)
