@@ -1,3 +1,12 @@
+# Author: Gabriel Cruz
+# Date: 2025-04-09
+# Description: This script uses the Copernicus Marine Toolbox to extract oceanographic data
+# for a given set of coordinates and dates in a CSV file.
+# The results are saved to a CSV file.
+
+# TO DO:
+#   - Create functions for each step for better readability
+
 import argparse
 import pandas as pd
 import os
@@ -46,22 +55,27 @@ def extract_variables(line):
     }
     return variables
 
-# captures the cli arguments
-args = parser_arguments()
+def main():
+    # Captures the cli arguments
+    args = parser_arguments()
 
-# reads input .csv file
-data_csv_df = pd.read_csv(args.csv)
+    # Reads input .csv file
+    data_csv_df = pd.read_csv(args.csv)
 
-# using threadPoolExecutor to parallelize the data extraction
-with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
-    result = list(executor.map(extract_variables, data_csv_df.to_dict(orient="records")))
+    # Using threadPoolExecutor to parallelize the data extraction
+    # max_workers=5 is the number of threads to use
+    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+        result = list(executor.map(extract_variables, data_csv_df.to_dict(orient="records")))
 
-# extracting the results into the DataFrame
-data_csv_df["thetao"] = [r["thetao"] for r in result]
-data_csv_df["so"] = [r["so"] for r in result]
+    # Extracting the results into the DataFrame
+    data_csv_df["thetao"] = [r["thetao"] for r in result]
+    data_csv_df["so"] = [r["so"] for r in result]
 
-# removes lines with NaN
-data_csv_df_clean = data_csv_df.dropna()
+    # Removes all lines with NaN
+    data_csv_df_clean = data_csv_df.dropna()
 
-# writes the output .csv file
-data_csv_df_clean.to_csv(args.out_csv, index=False)
+    # Writes the output .csv file
+    data_csv_df_clean.to_csv(args.out_csv, index=False)
+
+if __name__ == "__main__":
+    main()
