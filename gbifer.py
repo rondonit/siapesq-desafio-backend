@@ -13,14 +13,18 @@ import pandas as pd
 import argparse
 
 def parser_arguments():
-    # Get the arguments from the command line
-    #   --specie
-    #   --bbox (lat, long, 4 float values)
-    #   --limit
-    #   --begin_date
-    #   --end_date
-    #   --out_csv (output value)
+    """
+    Parses the arguments from the CLI.
 
+    Args:
+      --specie (str): scientific name of the species
+      --bbox (4*floats): bounding box coordinates, lat_max, lat_min, lon_max, lon_min
+      --limit (int): number of occurrences to return
+      --begin_date (str): start date for the search (YYYY-MM-DD)
+      --end_date (str): end date for the search (YYYY-MM-DD)
+      --out_csv (str): name of the output CSV file
+     
+    """
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--specie", required=True)
