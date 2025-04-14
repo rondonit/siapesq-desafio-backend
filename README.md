@@ -10,12 +10,12 @@ python3 gbifer.py --specie "thunnus obesus" --bbox 90 -90 180 -180 --limit 50 --
 ```
 
 *Args*:
-    `--specie`: Nome científico da espécie
-    `--bbox`: Coordenadas da caixa delimitadora no formato lat_max lat_min lon_max lon_min.
-    `--limit`: Número máximo de ocorrências a retornar.
-    `--begin_date`: Data inicial no formato YYYY-MM-DD.
-    `--end_date`: Data final no formato YYYY-MM-DD.
-    `--out_csv`: Nome do arquivo CSV de saída.
+- `--specie`: Nome científico da espécie
+- `--bbox`: Coordenadas da caixa delimitadora no formato lat_max lat_min lon_max lon_min.
+- `--limit`: Número máximo de ocorrências a retornar.
+- `--begin_date`: Data inicial no formato YYYY-MM-DD.
+- `--end_date`: Data final no formato YYYY-MM-DD.
+- `--out_csv`: Nome do arquivo CSV de saída.
 
 ## 2. Consultar variáveis oceanográficas com o `dmarine.py`
 Após gerar o CSV com o `gbifer.py`, use o script dmarine.py para consultar variáveis oceanográficas (como temperatura e salinidade) utilizando a API do Copernicus Marine. Exemplo:
@@ -24,9 +24,9 @@ Após gerar o CSV com o `gbifer.py`, use o script dmarine.py para consultar vari
 python3 dmarine.py --csv exemple.csv --out_csv test.csv --max_workers=15
 ```
 *Args*:
-    - `--csv`: Nome do arquivo CSV de entrada (gerado pelo gbifer.py).
-    - `--out_csv`: Nome do arquivo CSV de saída.
-    - `--max_workers`: Número de threads para paralelizar as consultas (opcional, padrão: 5)
+- `--csv`: Nome do arquivo CSV de entrada (gerado pelo gbifer.py).
+- `--out_csv`: Nome do arquivo CSV de saída.
+- `--max_workers`: Número de threads para paralelizar as consultas (opcional, padrão: 5)
 
 ### Formato esperado do CSV de saída
 O arquivo CSV gerado pelo dmarine.py deverá ter o seguinte formato:
